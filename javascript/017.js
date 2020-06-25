@@ -1,3 +1,8 @@
+const params = {
+  etype: '',
+  ngram: 0,
+  curIndex: 0
+}
 
 var getEngine = function (input, etype, ngram) {
 
@@ -25,6 +30,7 @@ var getEngine = function (input, etype, ngram) {
 };
 
 const pickOne = arr => arr[Math.floor(Math.random() * (arr.length - 0))]
+const pickFromRange = max => () => Math.floor(Math.random() * (max))
 
 var randomChunks = function (words) {
 
@@ -49,9 +55,10 @@ var randomChunks = function (words) {
 
 };
 
-var generate = (corpus, etype, ngram) => {
-  const text = pickOne(corpus)
-  var engine = getEngine(text, etype, ngram);
+var generate = (corpus, params) => () => {
+  console.log(`currentIndex: ${params.curIndex}`)
+  const text = corpus[params.curIndex]
+  var engine = getEngine(text, params.etype, params.ngram);
 
   var words = engine.GetWords(1000);
   var bites = randomChunks(words);
@@ -74,19 +81,24 @@ const page17 = function () {
 
   var input;
 
-  var etype = SketchLib.GetOption('engine') || 'markov'; // TODO: make sure is a valid engine
-  var ngram = parseInt(SketchLib.GetOption('ngram'), 10) || 5;
+  params.etype = SketchLib.GetOption('engine') || 'markov'; // TODO: make sure is a valid engine
+  params.ngram = parseInt(SketchLib.GetOption('ngram'), 10) || 5;
   var c = SketchLib.GetOption('content') || 'raw';
 
   var testinput = "as an apple is to a beta, this bridge is over the any hill. who says? she says! so says the soothsayer rapunzel. As Brad the Bard and Ken knew, the can-can can not know how to do it like an apple, like a bridge, like a beast of burden with a heavy load. And so what? The bald bearded bard sings a braided tale of happiness, of woe, of bitter embargoed apples on a barge passing under a bridegroom's bridge by a tepid, vapid moon. His beer is here, and all ale is well, hale, and hearty. This is not my bridge, it is your bridge, your toll bridge, your tool for trolls and travellers. I see you singing, Bradley Bard, I hear you. Your embalmer blames the bridge, his badge is barely adequate for the aqueduct, he ducks his dock responsibilities badly, baldly. Who is the third that walks beside you? How is he known, and how can he see in the dark (if, in fact, he can.) All what? All right, that is okay, he said.";
 
-  // debugger
-
   tumblrRandomPost()
     .then(corpus => {
-      const gen = () => generate(corpus, etype, ngram)
+      const getIndex = pickFromRange(corpus.length - 1)
+      params.curIndex = getIndex()
+      const gen = generate(corpus, params)
 
-      $(document).bind('keydown', 'r', gen);
+      $(document).bind('keydown', 'r', () => gen())
+      $(document).bind('keydown', 'n', () => {
+        console.log(`REASSIGNING INDEX`)
+        params.curIndex = getIndex()
+        gen()
+      })
 
       gen()
 
