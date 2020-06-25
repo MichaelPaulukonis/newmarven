@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en-us" >
+
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+    <title>to prepairs disapprecious WANK</title>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src='./jquery.hotkeys.js' type='text/javascript'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <script src='./tumblr-random.js' type='text/javascript'></script>
+
+
+    <script src='./sketchlib.js' type="text/javascript"></script>
+    <script src='./markov2.charng.js' type="text/javascript"></script>
+    <script src='./017.js' type="text/javascript"></script>
+
+    <link href="./017.css" rel="stylesheet" type="text/css" />
+
+  </head>
+
+  <body>
+
+    <div id="debugbox">
+      <h1 id='debuginfo'></h1>
+    </div>
+
+    <div id='content'>
+    </div>
+
+    <div id='info'>
+      <div id='infocontent'>
+        <h2 class='description'>to prepairs disapprecious WANK</h2>
+        <p>'r' to (re)generate</p>
+        2013.02.12 uses a markov engine modified from <a href="http://www.eddeaddad.net">Edde Addad's</a> <a href="http://www.xradiograph.com/WordSalad/AntonioRoque#charNG" title=" charNG (pronounced 'carnage')">charNG</a> code. It tries to avoid repetition, but can end up in some long loops due to a poor implementation of that logic. Takes a handful of query-params to change engine type, ngram-length, and switch between one of 3 source texts. I would rather the chunks wrap on line-endings, but need to do more display tweaks....
+
+        <div>
+          Query params include:
+          <ul>
+            <li><code class="escaped">engine={markov|cento|overlap}</code> to specify the engine (defaults to markov)</li>
+            <li><code class="escaped">ngram={1..n}</code> for length</li>
+            <li><code class="escaped">content={raw|material|test|[user-provided-text]}</code> for three different text sources (defaults to raw).</li>
+          </div>
+
+          <div>sample link: <a href="?engine=markov&amp;ngram=10&amp;content=material">017.html?engine=markov&amp;ngram=10&amp;content=material</a></div>
+          <div><a href="?content=material">017.html?content=material</a> (defaults to markov engine with ngram=5)</div>
+        <div><a href="?content=raw">017.html?content=raw</a></div>
+        <div><a href="?content=test">017.html?content=test</a></div>
+        <div><a href="?content=test&amp;ngram=3">017.html?content=test&amp;ngram=3</a>
+        <div><a href="?engine=markov&ngram=3&content=This%20is%20the%20beginning%20of%20the%20end%20of%20begging%20for%20bowls%20and%20beans%20and%20bread,%20and%20the%20end%20of%20bran%20and%20Branson%20and%20the%20role%20of%20Brandon%27s%20baked%20Bean%20casserole%20role-playing%20games.">[user-provided-text example]</a></div>
+
+        <p>More <a href='http://www.xradiograph.com/PrantedMutter/Sketch'>web sketches</a> by Michael Paulukonis.</p>
+      </div>
+    </div>
+
+
+<script type="text/rawmaterial" id="raw">
+Electron pulled up his list of dictionary words and looked
+at it. I'm going to have to cut this list down a bit, he thought. The
+dictionary was part of the password cracking program.
+The larger the dictionary, the longer it took the computer to crack a
+list of passwords. If he could weed out obscure words--words that
+people were unlikely to pick as passwords--then he could make his
+cracker run faster.
+
+An efficient password cracker was a valuable tool. Electron would feed
+his home computer a password file from a target computer, say from
+Melbourne University, then go to bed. About twelve hours later, he
+would check on his machine's progress.
+
+If he was lucky, he would find six or more accounts--user names and
+their passwords--waiting for him in a file. The process was completely
+automated. Electron could then log into Melbourne University using the
+cracked accounts, all of which could be used as jumping-off points for
+hacking into other systems for the price of a local telephone call.
+
+Cracking Unix passwords wasn't inordinately difficult,
+provided the different components of the program, such as the
+dictionary, had been set up properly. However, it was time-consuming.
+The principle was simple. Passwords, kept in password files with their
+corresponding user names, were encrypted. It was as impossible to
+reverse the encryption process as it was to unscramble an omelette.
+Instead, you needed to recreate the encryption process and compare the
+results.
+
+There were three basic steps. First, target a computer and get a copy
+of its password file. Second, take a list of commonly used passwords,
+such as users' names from the password file or words from a
+dictionary, and encrypt those into a second list. Third, put the two
+lists side by side and compare them. When you have a match, you have
+found the password.
+
+However, there was one important complication: salts. A salt changed
+the way a password was encrypted, subtly modifying the way the DES
+encryption algorithm worked. For example, the word `Underground'
+encrypts two different ways with two different salts: `kyvbExMcdAOVM'
+or `lhFaTmw4Ddrjw'. The first two characters represent the salt, the
+others represent the password. The computer chooses a salt randomly
+when it encrypts a user's password. Only one is used, and there are
+4096 different salts. All Unix computers use salts in their password
+encryption process.
+
+Salts were intended to make password cracking far more difficult, so a
+hacker couldn't just encrypt a dictionary once and then compare it to
+every list of encrypted passwords he came across in his hacking
+intrusions. The 4096 salts mean that a hacker would have to use 4096
+different dictionaries--each encrypted with a different salt--to
+discover any dictionary word passwords.
+
+On any one system penetrated by Electron, there might be only 25
+users, and therefore only 25 passwords, most likely using 25 different
+salts. Since the salt characters were stored immediately before the
+encrypted password, he could easily see which salt was being used for
+a particular password. He would therefore only have to encrypt a
+dictionary 25 different times.
+</script>
+
+
+<script type="text/rawmaterial" id="material">
+Because I have at this present undertaken to write of the of the first
+Tincture, the Root of Metals and Minerals, and to inform you of the
+Spiritual Essence, how the Metals and Minerals are at first spiritually
+conceived and born corporally; it will be necessary first of all to
+utter, and to acquaint you by a speech, that all things consist of two
+parts, that is, Natural and Supernatural; what is visible, tangible, and
+hath form or shape, that is natural; but what is intactible, without
+form, and spiritual, that is supernatural, and must be apprehended and
+conceived by Faith; such is the Creation, and especially the Eternity of
+God without end, immensible and incomprehensible; for Nature cannot
+conceive nor apprehend it by its humane reason: This is supernatural,
+what Reason cannot apprehend, but must be conceived by Faith, this is a
+Divine matter, and belongs to Theology, which judgeth Souls. Moreover,
+there appertains to supernatural things, the Angels of the Lord, having
+clarified Bodies, doing that by the permission of their Creator, which
+is impossible for any other Creature to do, their Works being concealed
+from the Eyes of the World, and so likewise are the Works of the
+Infernal Spirits and Devils unknown, which they do by the permission of
+the most High God. But above all the great Works of God are found and
+acknowledged to be supernatural, not to be scann'd and comprehended by
+Humane Imaginations; such is in especial the great Grace and Mercy of
+God which he bestows upon Mankind out of his great Love, which indeed no
+man can apprehend or know, and other great and wonderful works which he
+hath manifested divers manner of wayes by Christ our Saviour and
+Redeemer, for the confirmation of his Omnipotence and Glory: As when he
+raised _Lazarus_ from the dead, _Jairus_ his Daughter, the Ruler of the
+Synagogue, and the Widows Son of _Naim_. He made the Dumb to speak, the
+Deaf to hear, and the Blind to see, all which are supernatural, and
+_Magnalia Dei_; so also was his Conception, Resurrection, Descension,
+and Ascension into Heaven, too deep and mysterious for Nature; all which
+is only to be obtained by Faith.
+
+There belongs likewise to supernatural things, the taking of _Enoch_ and
+_Elias_ into Heaven, the divine rapture of St. _Paul_ in the Spirit into
+the third Heaven. Moreover, many supernatural things are done by
+Imagination, Dreams, and Visions; many wonders are done by the
+Imagination, witness the speckled Sheep by the speckled Rods laid in
+their watring places. God warned the wise men of the East by an especial
+Dream not to return again to _Herod_; likewise their three Persons,
+their three Gifts, Presents, or Offerings, and the supernatural Star,
+have all their peculiar and mystical meaning.
+
+Nor was that Dream which hapned to _Pilates_ Wife natural, who unjustly
+adjudged our Lord and Saviour Jesus Christ to death. The Vision of the
+Angels which appeared to the Shepherds at the Birth of Christ, and to
+the Women at his Sepulchre, who sought his Body where they had laid it,
+cannot be accounted Natural.
+
+There are many other supernatural things done at several times by the
+Prophets & Saints; so was the voice of the Ass speaking to _Balaam_,
+contrary to the common course of Nature; as also _Joseph_'s
+Interpretation of Dreams. And so God by his Angels preserves us
+oftentimes from infinite Evils, and delivers us out of manifold Dangers,
+impossible for Nature to do.
+
+All this & many others belong to Theology, and to Heaven, whereunto the
+Soul is to have regard. Now follows the supernatural things of the
+visible Works of God, as we see them in the Firmament; to wit, the
+Planets, Stars, and Elements, which are above our Reason, only their
+Course and Motion is observed by speculation and reckoning, which
+belongs to Astronomy; it is a visible but incomprehensible Being,
+performing its operation in a Magnetick way, out of which likewise
+divers admirable things are found and observed, which are altogether
+supernatural; understand it thus, that the Heaven operates in the Earth,
+and the Earth affords a correspondence with the Heavenly. For the Earth
+hath also its seven Planets, which are operated and bred by the seven
+Celestial, only by a spiritual Impression or Infusion, even as the Stars
+operate all Minerals. This is done incomprehensibly and spiritually, and
+therefore it is to be accounted supernatural, even as two Lovers, their
+persons are visible, but their Love one to the other is invisible:
+Humane Bodies are tangible and natural, but Love is invisible,
+spiritual, intangible and supernatural, comparable to a Magnetick
+Attraction only; for the invisible Love which is attracted unto it
+spiritually by the Imagination is, accomplish'd by the desires and
+fruition. In like manner when the Heaven hath a love to the Earth, and
+the Earth hath a Love, Inclination, and Affection towards Man, as the
+great World to the lesser, for the lesser World is taken out of the
+greater, and when the Earth by the desires of its invisible Imagination
+doth attract unto itself such a Love of the Heaven, there is thereby an
+Union of the Superiour and Inferiour, as Man and Wife are accounted one
+Body together, and after this Union the Earth is impregnated by the
+Infusion of the Heaven, and begins to conceive and bring forth a Birth
+sutable to the Infusion, and this Birth after its Conception is digested
+by the Elements, and brought to a perfect Ripeness and this is reckoned
+among the supernatural things; how the supernatural Essence performs its
+operation in the natural.
+</script>
+
+  </body>
+
+</html>
