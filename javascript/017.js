@@ -52,18 +52,64 @@ var randomChunks = function (words) {
   }
 
   return chunks;
-
 };
 
-var generate = (corpus, params) => () => {
-  console.log(`currentIndex: ${params.curIndex}`)
-  const text = corpus[params.curIndex]
-  var engine = getEngine(text, params.etype, params.ngram);
+const getRandom = (arr, n) => {
+  const result = new Array(n)
+  let len = arr.length
+  let taken = new Array(len);
+  if (n > len)
+    throw new RangeError("getRandom: more elements taken than available");
+  while (n--) {
+    const x = Math.floor(Math.random() * len);
+    result[n] = arr[x in taken ? taken[x] : x];
+    taken[x] = --len in taken ? taken[len] : len;
+  }
+  return result;
+}
 
-  var words = engine.GetWords(1000);
-  var bites = randomChunks(words);
-  var content = $('#content');
-  content.html('<span>' + bites.join('</span>\n<span>') + '</span>');
+var generate = (corpus, params) => () => {
+  const text = corpus[params.curIndex]
+  // var engine = getEngine(text, params.etype, params.ngram);
+
+  // var words = engine.GetWords(1000);
+  // var bites = randomChunks(text.split(' '));
+  // var content = $('#content');
+  // content.html('<span>' + bites.join('</span>\n<span>') + '</span>');
+  // content.html(`<span style='color: blue; background: yellow;'> ${bites.join('</span>\n<span>')} </span>`);
+
+  const engine = getEngine(text, params.etype, params.ngram);
+  const words = engine.GetWords(1000);
+  const bites = randomChunks(words)
+
+  // TODO: pick two colors from an array each time
+  // they cannot be the same colors (text to be visble)
+  // const palette = [ '#FF6037', '#FF9966', '#FF9933',
+  //   '#FFCC33', '#FFFF66', '#FFFF66', '#CCFF00', '#66FF66', '#AAF0D1',
+  //   '#50BFE6', '#FF6EFF', '#EE34D2', '#FF00CC', ]
+
+  const palettes = [
+    { color: '#ff355e', complements: ['#35ffd6', '#35c3ff', '#355eff', '#7135ff', '#d635ff' ] },
+    { color: '#fd5b78', complements: ['#5bfde0', '#5bc9fd', '#5b78fd', '#8f5bfd', '#e05bfd', '#fd5bc9']},
+    { color: '#ff00cc', complements: ['#00ff33', '#00ffb2', '#00ccff', '#004cff', '#3300ff', '#b300ff']},
+    { color: '#ff355e', complements: ['#3366ff', '#6633ff', '#cc33ff', '#ff33cc', '#ff3366', '#ff6633']}
+    // { color: '#', complements: []},
+    // { color: '#', complements: []},
+    // { color: '#', complements: []},
+    // { color: '#', complements: []},
+    // { color: '#', complements: []},
+    // { color: '#', complements: []},
+    // { color: '#', complements: []},
+    // { color: '#', complements: []},
+    // { color: '#', complements: []},
+  ]
+  const palette = pickOne(palettes)
+  const makeSpan = t => {
+    const [color1, color2] = getRandom(palette, 2)
+    return `<span style='color: ${pickOne(palette.complements)}; background: ${palette.color};'>${t}</span>`
+  }
+  const allText = bites.map(makeSpan).join('\n')
+  $('#content').html(allText)
 };
 
 $(document).ready(function () {
@@ -95,7 +141,6 @@ const page17 = function () {
 
       $(document).bind('keydown', 'r', () => gen())
       $(document).bind('keydown', 'n', () => {
-        console.log(`REASSIGNING INDEX`)
         params.curIndex = getIndex()
         gen()
       })
