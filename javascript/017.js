@@ -86,8 +86,12 @@ var generate = (corpus, params) => () => {
   // they cannot be the same colors (text to be visble)
   // const palette = [ '#FF6037', '#FF9966', '#FF9933',
   //   '#FFCC33', '#FFFF66', '#FFFF66', '#CCFF00', '#66FF66', '#AAF0D1',
-  //   '#50BFE6', '#FF6EFF', '#EE34D2', '#FF00CC', ]
+  //   '#50BFE6', '#FF6EFF', '#EE34D2', '#FF00CC', ]/
 
+  // https://htmlcolorcodes.com/color-picker/
+  // using a core color ('color'), find the complement
+  // then, get the analogous colors for the complement
+  // NOTE: some of the complements are too similar and have to be manually removed
   const palettes = [
     { color: '#ff355e', complements: ['#35ffd6', '#35c3ff', '#355eff', '#7135ff', '#d635ff' ] },
     { color: '#fd5b78', complements: ['#5bfde0', '#5bc9fd', '#5b78fd', '#8f5bfd', '#e05bfd', '#fd5bc9']},
