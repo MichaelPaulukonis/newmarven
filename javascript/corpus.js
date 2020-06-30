@@ -102,4 +102,3 @@ HERO (Continuing singing) Fetch my boots -(Harpo throws boots on stage Hero cont
 TRENTINO With Mrs. Teasdale as my wife and Freedonia under my control -(He rubs his hands significantly) VERA Maybe it’s not going to be so easy.`
 
 ]
-

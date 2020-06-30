@@ -26,7 +26,7 @@ const tumblrRandomPost = () => {
           .then((response) => {
             const newCorpus = response.data.response.posts.map((post) => {
               // const body = jQuery('div').html(post.body).text()
-              var body = post.body.replace(/(<([^>]+)>)/g, "")
+              const body = post.body.replace(/(<([^>]+)>)/g, '')
               // also post.url, post.title
               return cleanup(body)
             })
