@@ -4,9 +4,7 @@ const params = {
   curIndex: 0
 }
 
-var getEngine = function (input, etype, ngram) {
-
-  var opts = {};
+var getEngine = (input, etype, ngram) => {
 
   // TODO: this should be part of the library
   // EXCEPT.... it's not a static object, so it's not availbe yet.....
@@ -16,17 +14,15 @@ var getEngine = function (input, etype, ngram) {
     overlap: "1-char overlap"
   };
 
-  opts.inputString = input;
+  const opts = {
+    inputString: input,
+    model: etype,
+    ngramLength: ngram
+  }
 
-  opts.model = etype;
-
-  // this is a char-based engine
-  opts.ngramLength = ngram;
-
-  var w = new markov(opts);
+  const w = new markov(opts);
 
   return w;
-
 };
 
 const pickOne = arr => arr[Math.floor(Math.random() * (arr.length - 0))]
@@ -97,49 +93,61 @@ var generate = (corpus, params) => () => {
     { color: '#fd5b78', complements: ['#5bfde0', '#5bc9fd', '#5b78fd', '#8f5bfd', '#e05bfd', '#fd5bc9']},
     { color: '#ff00cc', complements: ['#00ff33', '#00ffb2', '#00ccff', '#004cff', '#3300ff', '#b300ff']},
     { color: '#ff355e', complements: ['#3366ff', '#6633ff', '#cc33ff', '#ff33cc', '#ff3366', '#ff6633']},
-    { color: '#FFFF00', complements: []},
-    { color: '#7FFF00', complements: []},
-    { color: '#00FA9A', complements: []},
+    // { color: '#FFFF00', complements: []},
+    // { color: '#7FFF00', complements: []},
+    // { color: '#00FA9A', complements: []},
     { color: '#7FFFD4', complements: ['#da7fff', '#ffda7f', 'FF7FA4']},
-    { color: '#DDA0DD', complements: []},
-    { color: '#FF1493', complements: []},
-    { color: '#F8F8FF', complements: []},
-    { color: '#778899', complements: []},
-    { color: '#F4A460', complements: []},
+    // { color: '#DDA0DD', complements: []},
+    // { color: '#FF1493', complements: []},
+    // { color: '#F8F8FF', complements: []},
+    // { color: '#778899', complements: []},
+    // { color: '#F4A460', complements: []},
   ]
   const palette = pickOne(palettes)
   const foreGrounds = getRandom(['white', 'black', 'red', 'yello', 'lime', '#FF4500', '#00BFFF'], 3)
+  // if no complements, use foreGrounds
   const makeSpan = t => {
     const [color1, color2] = getRandom(palette, 2)
     const text = pickOne(foreGrounds)
-    // return `<span style='color: ${pickOne(palette.complements)}; background: ${palette.color};'>${t}</span>`
-    return `<span style='color: ${text}; mix-blend-mode: difference;; background: ${palette.color};'>${t}</span>`
+    return `<span style='color: ${pickOne(palette.complements)}; mix-blend-mode: difference; background: ${palette.color};'>${t}</span>`
+    // return `<span style='color: ${text}; mix-blend-mode: difference; background: ${palette.color};'>${t}</span>`
 
   }
   const allText = bites.map(makeSpan).join('\n')
   $('#content').html(allText)
 };
 
-$(document).ready(function () {
-
-  page17();
-
-});
+$(document).ready(() => launch() )
 
 // nothing is in #content (by default)
 // cycle through #hidden
 // take one span at a time
 //   place into #content
 //   maximize size
-const page17 = function () {
+const launch = () => {
 
-  var input;
+  let input;
 
   params.etype = SketchLib.GetOption('engine') || 'markov'; // TODO: make sure is a valid engine
   params.ngram = parseInt(SketchLib.GetOption('ngram'), 10) || 5;
   var c = SketchLib.GetOption('content') || 'raw';
 
   var testinput = "as an apple is to a beta, this bridge is over the any hill. who says? she says! so says the soothsayer rapunzel. As Brad the Bard and Ken knew, the can-can can not know how to do it like an apple, like a bridge, like a beast of burden with a heavy load. And so what? The bald bearded bard sings a braided tale of happiness, of woe, of bitter embargoed apples on a barge passing under a bridegroom's bridge by a tepid, vapid moon. His beer is here, and all ale is well, hale, and hearty. This is not my bridge, it is your bridge, your toll bridge, your tool for trolls and travellers. I see you singing, Bradley Bard, I hear you. Your embalmer blames the bridge, his badge is barely adequate for the aqueduct, he ducks his dock responsibilities badly, baldly. Who is the third that walks beside you? How is he known, and how can he see in the dark (if, in fact, he can.) All what? All right, that is okay, he said.";
+
+  var infoHide = $this => {
+    $this.stop().animate({ bottom: infoBottom, opacity: 0.01 }, 'slow');
+  };
+
+  var infoShow = function ($this) {
+    $this.stop().animate({ bottom: 0, opacity: 0.85 }, 'slow');
+  };
+
+  const $info = $('#info')
+  const infoBottom = $info.css('bottom');
+  $info.mouseenter(() =>  infoShow($info) ).mouseleave(() => infoHide($info) );
+
+  infoShow($info);
+  $info.fadeTo(10000, 0.01);
 
   tumblrRandomPost()
     .then(corpus => {
@@ -148,6 +156,8 @@ const page17 = function () {
       const gen = generate(corpus, params)
 
       $(document).bind('keydown', 'r', () => gen())
+      $(document).bind('keydown', 'h', () => infoHide($info))
+
       $(document).bind('keydown', 'n', () => {
         params.curIndex = getIndex()
         gen()
@@ -155,7 +165,7 @@ const page17 = function () {
 
       gen()
 
-      $('#infobox').fadeOut(5000);
+      $('#infobox').fadeOut(1000);
     })
 
   // switch (c) {
@@ -183,23 +193,7 @@ const page17 = function () {
   // generate(input, etype, ngram);
 };
 
-$(document).ready(function () {
+$(document).ready(() => {
 
-  // preliminary hide/show code for "new" info-box at bottom of page
-  var infoDisappear = function ($this) {
-    $this.stop().animate({ bottom: infoBottom, opacity: 0.01 }, 'slow');
-    console.log('disappeared');
-  };
 
-  var infoAppear = function ($this) {
-    $this.stop().animate({ bottom: 0, opacity: 0.85 }, 'slow');
-    console.log('appeared');
-  };
-
-  var $info = $('#info'),
-    infoBottom = $info.css('bottom');
-  $info.mouseenter(function () { infoAppear($info); }).mouseleave(function () { infoDisappear($info); });
-
-  infoAppear($info);
-  $info.fadeTo(10000, 0.01);
 });
