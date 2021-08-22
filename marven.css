@@ -8,7 +8,10 @@ body, html, form {
 
 #content {
     /* width: 100%; */
-    height: 100%;
+    /* height: 100%; */
+    width: 500px;
+    height: 500px;
+    margin: auto;
     text-align: justify;
 }
 
@@ -17,6 +20,11 @@ body, html, form {
     line-height: 50px;
     font-weight: 700;
     font-size: 16pt;
+    /* uh.... https://stackoverflow.com/questions/34659853/how-to-apply-padding-to-every-line-in-multi-line-text/34660112 */
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    /* variations at https://css-tricks.com/multi-line-padded-text/ */
+    /* white-space: pre-wrap; */
 }
 
 #infobox {

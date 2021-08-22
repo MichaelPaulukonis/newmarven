@@ -66,13 +66,6 @@ const getRandom = (arr, n = 1) => {
 
 var generate = (corpus, params) => () => {
   const text = corpus[params.curIndex]
-  // var engine = getEngine(text, params.etype, params.ngram);
-
-  // var words = engine.GetWords(1000);
-  // var bites = randomChunks(text.split(' '));
-  // var content = $('#content');
-  // content.html('<span>' + bites.join('</span>\n<span>') + '</span>');
-  // content.html(`<span style='color: blue; background: yellow;'> ${bites.join('</span>\n<span>')} </span>`);
 
   const engine = getEngine(text, params.etype, params.ngram);
   const words = engine.GetWords(1000);
@@ -89,14 +82,22 @@ var generate = (corpus, params) => () => {
   // then, get the analogous colors for the complement
   // NOTE: some of the complements are too similar and have to be manually removed
   const palettes = [
-    { color: '#ff355e', complements: ['#35ffd6', '#35c3ff', '#355eff', '#7135ff', '#d635ff' ] },
-    { color: '#fd5b78', complements: ['#5bfde0', '#5bc9fd', '#5b78fd', '#8f5bfd', '#e05bfd', '#fd5bc9']},
-    { color: '#ff00cc', complements: ['#00ff33', '#00ffb2', '#00ccff', '#004cff', '#3300ff', '#b300ff']},
-    { color: '#ff355e', complements: ['#3366ff', '#6633ff', '#cc33ff', '#ff33cc', '#ff3366', '#ff6633']},
-    // { color: '#FFFF00', complements: []},
+    // { color: '#ff355e', complements: ['#35ffd6', '#35c3ff', '#355eff', '#7135ff', '#d635ff' ] },
+    // { color: '#fd5b78', complements: ['#5bfde0', '#5bc9fd', '#5b78fd', '#8f5bfd', '#e05bfd', '#fd5bc9']},
+    // { color: '#ff00cc', complements: ['#00ff33', '#00ffb2', '#00ccff', '#004cff', '#3300ff', '#b300ff']},
+    // { color: '#ff355e', complements: ['#3366ff', '#6633ff', '#cc33ff', '#ff33cc', '#ff3366', '#ff6633']},
+    // { color: '#7FFFD4', complements: ['#da7fff', '#ffda7f', 'FF7FA4']},
+    // { color: '#7FFFD4', complements: ['#da7fff', '#ffda7f', 'FF7FA4']},
+    // the following should NOT have difference mix-blend mode
+    { color: '#FCF340', complements: ['#fb33db', '#0310ea', '#7fff00']},
+    { color: '#7fff00', complements: ['#fb33db', '#0310ea', '#FCF340']},
+    { color: '#0310ea', complements: ['#fb33db', '#7fff00', '#FCF340']},
+    { color: '#fb33db', complements: ['#0310ea', '#7fff00', '#FCF340']},
+
+
+
     // { color: '#7FFF00', complements: []},
     // { color: '#00FA9A', complements: []},
-    { color: '#7FFFD4', complements: ['#da7fff', '#ffda7f', 'FF7FA4']},
     // { color: '#DDA0DD', complements: []},
     // { color: '#FF1493', complements: []},
     // { color: '#F8F8FF', complements: []},
@@ -109,7 +110,9 @@ var generate = (corpus, params) => () => {
   const makeSpan = t => {
     const [color1, color2] = getRandom(palette, 2)
     const text = pickOne(foreGrounds)
-    return `<span style='color: ${pickOne(palette.complements)}; mix-blend-mode: difference; background: ${palette.color};'>${t}</span>`
+    return `<span style='color: ${pickOne(palette.complements)}; background: ${palette.color};'>${t}</span>`
+
+    // return `<span style='color: ${pickOne(palette.complements)}; mix-blend-mode: difference; background: ${palette.color};'>${t}</span>`
     // return `<span style='color: ${text}; mix-blend-mode: difference; background: ${palette.color};'>${t}</span>`
 
   }
@@ -192,8 +195,3 @@ const launch = () => {
 
   // generate(input, etype, ngram);
 };
-
-$(document).ready(() => {
-
-
-});
