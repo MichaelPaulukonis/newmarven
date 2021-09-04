@@ -3,12 +3,13 @@
 
   <head>
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
-    <title>to prepairs disapprecious WANK</title>
+    <title>VERTICAL BASELINE EXPANSIVE</title>
 
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src='./javascript/jquery.hotkeys.js' type='text/javascript'></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+    <script src="https://unpkg.com/rita"></script>
+    
     <script src='./javascript/tumblr-random.js' type='text/javascript'></script>
 
     <script src='./javascript/sketchlib.js' type="text/javascript"></script>
@@ -25,12 +26,15 @@
       <h1 id='debuginfo'></h1>
     </div>
 
-    <div id='content'>
+    <div class="container">
+      <div id='content'>
+      </div>
     </div>
+    
 
     <div id='info'>
       <div id='infocontent'>
-        <h2 class='description'>to prepairs disapprecious WANK</h2>
+        <h2 class='description'>VERTICAL BASELINE EXPANSIVE</h2>
         <p>'r' to (re)generate (with same text)</p>
         <p>'n' switch to next text in corpus, and regenerate</p>
         2013.02.12 uses a markov engine modified from <a href="http://www.eddeaddad.net">Edde Addad's</a> <a href="http://www.xradiograph.com/WordSalad/AntonioRoque#charNG" title=" charNG (pronounced 'carnage')">charNG</a> code. It tries to avoid repetition, but can end up in some long loops due to a poor implementation of that logic. Takes a handful of query-params to change engine type, ngram-length, and switch between one of 3 source texts. I would rather the chunks wrap on line-endings, but need to do more display tweaks....

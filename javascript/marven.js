@@ -67,9 +67,27 @@ const getRandom = (arr, n = 1) => {
 var generate = (corpus, params) => () => {
   const text = corpus[params.curIndex]
 
-  const engine = getEngine(text, params.etype, params.ngram);
-  const words = engine.GetWords(1000);
+  // const engine = getEngine(text, params.etype, params.ngram);
+  // const words = engine.GetWords(1000);
+
+  const markov = RiTa.markov(1);
+  // let rm = RiTa.markov(3);
+  // rm.addText("The girl went to a game after dinner.\
+  //             The teacher went to dinner with a girl.");
+  // sentences = rm.generate(2);
+
+  // debugger
+  markov.addText(text);
+
+  const words = markov.generate(10).join(' ').replace(/\<s\>/ig, '').split(/\s+/)
+
   const bites = randomChunks(words)
+
+
+  const neons = ['#FFFF00', '#FFFF33', '#F2EA02', '#E6FB04', '#FF0000', '#FD1C03', 
+    '#FF3300', '#FF6600', '#00FF00', '#00FF33', '#00FF66', '#33FF00', '#00FFFF', 
+    '#099FFF', '#0062FF', '#0033FF', '#FF00FF', '#FF00CC', '#FF0099', '#CC00FF', 
+    '#9D00FF', '#CC00FF', '#6E0DD0', '#9900FF']
 
   // TODO: pick two colors from an array each time
   // they cannot be the same colors (text to be visble)
@@ -82,19 +100,59 @@ var generate = (corpus, params) => () => {
   // then, get the analogous colors for the complement
   // NOTE: some of the complements are too similar and have to be manually removed
   const palettes = [
-    // { color: '#ff355e', complements: ['#35ffd6', '#35c3ff', '#355eff', '#7135ff', '#d635ff' ] },
-    // { color: '#fd5b78', complements: ['#5bfde0', '#5bc9fd', '#5b78fd', '#8f5bfd', '#e05bfd', '#fd5bc9']},
-    // { color: '#ff00cc', complements: ['#00ff33', '#00ffb2', '#00ccff', '#004cff', '#3300ff', '#b300ff']},
-    // { color: '#ff355e', complements: ['#3366ff', '#6633ff', '#cc33ff', '#ff33cc', '#ff3366', '#ff6633']},
-    // { color: '#7FFFD4', complements: ['#da7fff', '#ffda7f', 'FF7FA4']},
-    // { color: '#7FFFD4', complements: ['#da7fff', '#ffda7f', 'FF7FA4']},
-    // the following should NOT have difference mix-blend mode
-    { color: '#FCF340', complements: ['#fb33db', '#0310ea', '#7fff00']},
-    { color: '#7fff00', complements: ['#fb33db', '#0310ea', '#FCF340']},
-    { color: '#0310ea', complements: ['#fb33db', '#7fff00', '#FCF340']},
-    { color: '#fb33db', complements: ['#0310ea', '#7fff00', '#FCF340']},
+    // { color: '#ff355e', complements: ['#35ffd6', '#35c3ff', '#355eff', '#7135ff', '#d635ff' ], blendMode: true },
+    // { color: '#fd5b78', complements: ['#5bfde0', '#5bc9fd', '#5b78fd', '#8f5bfd', '#e05bfd', '#fd5bc9'], blendMode: true },
+    // { color: '#ff00cc', complements: ['#00ff33', '#00ffb2', '#00ccff', '#004cff', '#3300ff', '#b300ff'], blendMode: true },
+    // { color: '#ff355e', complements: ['#3366ff', '#6633ff', '#cc33ff', '#ff33cc', '#ff3366', '#ff6633'], blendMode: true },
+    // { color: '#7FFFD4', complements: ['#da7fff', '#ffda7f', 'FF7FA4'], blendMode: true },
+    // { color: '#7FFFD4', complements: ['#da7fff', '#ffda7f', 'FF7FA4'], blendMode: true },
+    // // the following should NOT have difference mix-blend mode
+    // { color: '#FCF340', complements: ['#fb33db', '#0310ea', '#7fff00']},
+    // { color: '#7fff00', complements: ['#fb33db', '#0310ea', '#FCF340']},
+    // // { color: '#0310ea', complements: ['#fb33db', '#7fff00', '#FCF340']}, // almost the same as background sigh
+    // { color: '#fb33db', complements: ['#0310ea', '#7fff00', '#FCF340']},
 
+    // { color: '#FFFF00', complements: [
+    //   // '#FF0000',
+    //   // '#33FF00',
+    //   // '#0033FF',
+    //   '#9900FF',
+    //   '#FF00FF',
+    //   '#FF00CC',
+    //   '#FF0099',
+    //   '#CC00FF',
+    //   ]},
 
+// Neon Yellow:
+// #FFFF00
+// #FFFF33
+// #F2EA02
+// #E6FB04
+// Neon Red:
+// #FF0000
+// #FD1C03
+// #FF3300
+// #FF6600
+// Neon Green:
+// #00FF00
+// #00FF33
+// #00FF66
+// #33FF00
+// Neon Blue:
+// #00FFFF
+// #099FFF
+// #0062FF
+// #0033FF
+// Neon Pink:
+// #FF00FF
+// #FF00CC
+// #FF0099
+// #CC00FF
+// Neon Purple:
+// #9D00FF
+// #CC00FF
+// #6E0DD0
+// #9900FF
 
     // { color: '#7FFF00', complements: []},
     // { color: '#00FA9A', complements: []},
@@ -104,17 +162,18 @@ var generate = (corpus, params) => () => {
     // { color: '#778899', complements: []},
     // { color: '#F4A460', complements: []},
   ]
+  .concat(neons.map(n => ({ color: n })))
+
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode
   const palette = pickOne(palettes)
   const foreGrounds = getRandom(['white', 'black', 'red', 'yello', 'lime', '#FF4500', '#00BFFF'], 3)
+  const blendMode = palette.blendMode ? 'mix-blend-mode: difference;' : ''
+  if (!palette.complements || palette.complements.length === 0) {
+    palette.complements = foreGrounds
+  }
   // if no complements, use foreGrounds
   const makeSpan = t => {
-    const [color1, color2] = getRandom(palette, 2)
-    const text = pickOne(foreGrounds)
-    return `<span style='color: ${pickOne(palette.complements)}; background: ${palette.color};'>${t}</span>`
-
-    // return `<span style='color: ${pickOne(palette.complements)}; mix-blend-mode: difference; background: ${palette.color};'>${t}</span>`
-    // return `<span style='color: ${text}; mix-blend-mode: difference; background: ${palette.color};'>${t}</span>`
-
+    return `<span style='color: ${pickOne(palette.complements)}; ${blendMode} background: ${palette.color};'>${t}</span>`
   }
   const allText = bites.map(makeSpan).join('\n')
   $('#content').html(allText)

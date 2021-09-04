@@ -6,13 +6,34 @@ body, html, form {
     overflow: hidden;
 }
 
-#content {
-    /* width: 100%; */
-    /* height: 100%; */
+/* .container {
+    position: relative;
     width: 500px;
     height: 500px;
-    margin: auto;
+    height: 10em;
+} */
+
+.container {
+    /* min-height: 100vh; */
+    /* height: 50vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25vh;
+  }
+
+#content {
+    /* width: 500px;
+    height: 500px; */
+    width: 50vw;
+    height: 50vh;
     text-align: justify;
+    /* position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)  */
 }
 
 #content span {
@@ -27,6 +48,14 @@ body, html, form {
     /* white-space: pre-wrap; */
 }
 
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+  }
 #infobox {
     position: fixed;
     top: 50%;
